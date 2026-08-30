@@ -1,0 +1,151 @@
+---
+// Page Fonctionnalités : présente les modules d'AcademyFlow.
+import MainLayout from '@/layouts/MainLayout.astro';
+import FeaturesNavs from '@components/sections/features/FeaturesNavs.astro';
+import IconBlock from '@components/ui/blocks/IconBlock.astro';
+import Icon from '@components/ui/icons/Icon.astro';
+import HeroSectionAlt from '@components/sections/landing/HeroSectionAlt.astro';
+import { SITE, SEO } from '@data/constants';
+import dashboardImage from '@images/produit/dashboard.png';
+import eleveImage from '@images/produit/eleves.png';
+import caisseImage from '@images/produit/caisse-recu.png';
+
+const pageTitle = `Fonctionnalités | ${SITE.title}`;
+const metaDescription =
+  "Découvrez les modules d'AcademyFlow : gestion des élèves, caisse et paiements, reçus imprimables, suivi des frais de scolarité, rapports financiers, documents administratifs, sauvegarde et fonctionnement hors ligne.";
+
+// Modules complémentaires, présentés sous forme de grille (en plus des 3
+// modules déjà détaillés en tabs ci-dessous : élèves, caisse & reçus, rapports)
+const autresModules = [
+  {
+    heading: 'Suivi des frais de scolarité',
+    content:
+      "Pour chaque élève : frais prévus, montants déjà payés, reste à payer et historique des règlements. On passe du simple enregistrement à un vrai suivi de la situation financière.",
+    svg: 'verified',
+  },
+  {
+    heading: 'Documents administratifs',
+    content:
+      "Générez automatiquement certificats de scolarité, attestations d'inscription, fiches élèves et listes de classe, à partir des données déjà présentes dans AcademyFlow.",
+    svg: 'frame',
+  },
+  {
+    heading: 'Sauvegarde et restauration',
+    content:
+      "Vos données sont sauvegardées automatiquement sur une infrastructure distante sécurisée, pour vous protéger d'une panne, d'un vol ou d'une erreur humaine.",
+    svg: 'verified',
+  },
+  {
+    heading: 'Fonctionnement hors ligne',
+    content:
+      "Travaillez normalement même sans connexion Internet. Les opérations sont conservées localement puis synchronisées automatiquement dès que la connexion revient.",
+    svg: 'earth',
+  },
+  {
+    heading: 'Export PDF et Excel',
+    content:
+      "Exportez vos rapports et états financiers en PDF pour l'archivage et l'impression, ou en Excel pour l'analyse et le traitement complémentaire.",
+    svg: 'books',
+  },
+  {
+    heading: 'Modules interconnectés',
+    content:
+      "Élève enregistré, paiement effectué, reçu généré, caisse mise à jour, rapports disponibles : une même information circule d'un module à l'autre sans ressaisie.",
+    svg: 'groups',
+  },
+];
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={pageTitle}
+  structuredData={{
+    ...SEO.structuredData,
+    '@id': `${SITE.url}/fonctionnalites`,
+    url: `${SITE.url}/fonctionnalites`,
+    name: pageTitle,
+    description: metaDescription,
+  }}
+>
+  {/* En-tête de page */}
+  <section class="mx-auto max-w-[85rem] px-4 pt-10 pb-4 sm:px-6 lg:px-8 lg:pt-14">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1
+        class="text-3xl font-bold tracking-tight text-balance text-neutral-800 md:text-5xl md:leading-tight dark:text-neutral-200"
+      >
+        Une plateforme, <span class="text-yellow-500 dark:text-yellow-400"
+          >sept modules</span
+        > connectés entre eux
+      </h1>
+      <p class="mt-4 text-pretty text-lg text-neutral-600 dark:text-neutral-400">
+        AcademyFlow regroupe la gestion des élèves, de la caisse, des reçus et
+        des rapports financiers de votre établissement au sein d'un même
+        environnement — sans multiplier les cahiers et les outils.
+      </p>
+    </div>
+  </section>
+
+  {/* Les 3 modules coeur, en détail avec captures d'écran */}
+  <FeaturesNavs
+    title="Les modules du quotidien"
+    tabs={[
+      {
+        heading: 'Gestion des élèves',
+        content:
+          "Enregistrez un nouvel élève, gérez ses informations personnelles, associez-le à une classe, consultez et modifiez sa fiche. Une fiche élève centralisée, réutilisée par les autres modules (paiements, reçus, documents).",
+        svg: 'groups',
+        src: eleveImage,
+        alt: 'Fiche élève détaillée dans AcademyFlow',
+        first: true,
+      },
+      {
+        heading: 'Caisse, paiements & reçus',
+        content:
+          "Enregistrez encaissements et décaissements (élève, montant, date, mode de paiement, utilisateur, référence), consultez le journal de caisse, et imprimez un reçu professionnel sur imprimante thermique dès qu'un paiement est validé.",
+        svg: 'books',
+        src: caisseImage,
+        alt: "Journal de caisse et impression d'un reçu de paiement dans AcademyFlow",
+        second: true,
+      },
+      {
+        heading: 'Rapports & états financiers',
+        content:
+          "États de caisse, rapports d'encaissement et de décaissement, historiques de transactions, filtrables par période. Exportables en PDF ou en Excel pour l'archivage et l'analyse.",
+        svg: 'dashboard',
+        src: dashboardImage,
+        alt: 'Tableau de bord et rapports financiers AcademyFlow',
+      },
+    ]}
+  />
+
+  {/* Grille des autres modules */}
+  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
+      <h2
+        class="text-2xl font-bold tracking-tight text-balance text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200"
+      >
+        Et bien plus encore
+      </h2>
+      <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
+        Les fonctionnalités qui font d'AcademyFlow un système cohérent, pas
+        seulement une somme d'outils séparés.
+      </p>
+    </div>
+    <div class="grid gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
+      {
+        autresModules.map(module => (
+          <IconBlock heading={module.heading} content={module.content}>
+            <Icon name={module.svg} />
+          </IconBlock>
+        ))
+      }
+    </div>
+  </section>
+
+  <HeroSectionAlt
+    title="Prêt à tester AcademyFlow ?"
+    subTitle="Téléchargez-le gratuitement et testez tous les modules pendant 5 jours, sans engagement."
+    url="/telecharger"
+  />
+</MainLayout>

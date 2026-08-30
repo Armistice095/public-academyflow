@@ -1,0 +1,42 @@
+{
+  "title": "Un tarif simple, adapté à votre établissement",
+  "subTitle": "Testez AcademyFlow gratuitement pendant 5 jours, puis choisissez la formule qui correspond à vos besoins. Aucun engagement, aucune surprise.",
+  "badge": "Le plus choisi",
+  "premiumBadge": "Recommandé",
+  "thirdOption": "Besoin d'un devis pour plusieurs établissements ?",
+  "btnText": "Nous contacter",
+
+  "starterKit": {
+    "name": "Standard",
+    "description": "L'essentiel pour gérer efficacement votre établissement",
+    "price": "50 000",
+    "cents": "",
+    "billingFrequency": "FCFA / an / poste",
+    "features": [
+      "Gestion des élèves",
+      "Caisse & encaissements",
+      "Reçus de paiement",
+      "Documents administratifs",
+      "Fonctionnement hors ligne",
+      "Sauvegarde automatique des données",
+      "Support par e-mail"
+    ],
+    "purchaseBtnTitle": "Choisir Standard",
+    "purchaseLink": "/tarifs"
+  },
+
+  "professionalToolbox": {
+    "name": "Premium",
+    "description": "La solution complète, avec votre imprimante de reçus",
+    "price": "92 000",
+    "cents": "",
+    "billingFrequency": "FCFA / an / poste",
+    "features": [
+      "Tout ce qui est inclus dans Standard",
+      "Imprimante thermique de reçus offerte",
+      "Support prioritaire"
+    ],
+    "purchaseBtnTitle": "Choisir Premium",
+    "purchaseLink": "/tarifs"
+  }
+}

@@ -1,0 +1,211 @@
+---
+// Import the necessary dependencies
+import { Image } from 'astro:assets';
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import SecondaryCTA from '@components/ui/buttons/SecondaryCTA.astro';
+import ReviewComponent from '@components/ui/blocks/ReviewComponent.astro';
+
+// Define props from Astro
+const {
+  title,
+  titlePrefix,
+  typedWords,
+  subTitle,
+  primaryBtn,
+  primaryBtnURL,
+  secondaryBtn,
+  secondaryBtnURL,
+  withReview,
+  avatars,
+  starCount,
+  rating,
+  reviews,
+  src,
+  alt,
+} = Astro.props;
+
+// Define TypeScript interface for props
+interface Props {
+  title?: string;
+  titlePrefix?: string;
+  typedWords?: string[];
+  subTitle?: string;
+  primaryBtn?: string;
+  primaryBtnURL?: string;
+  secondaryBtn?: string;
+  secondaryBtnURL?: string;
+  withReview?: boolean;
+  avatars?: Array<string>;
+  starCount?: number;
+  rating?: string;
+  reviews?: string;
+  src?: any;
+  alt?: string;
+}
+
+// Texte statique de secours pour le SEO / les lecteurs d'écran / le no-JS :
+// on affiche la première variante en toutes lettres, cachée visuellement
+// quand l'animation "machine à écrire" est active.
+const fallbackFullTitle =
+  typedWords && typedWords.length
+    ? `${titlePrefix ?? ''} ${typedWords[0]}`
+    : title;
+---
+
+{/* Defining a grid container that holds all the content */}
+<section
+  class="mx-auto grid max-w-[85rem] gap-4 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center md:gap-8 lg:px-8 2xl:max-w-full"
+>
+  {/* Title and description */}
+  <div>
+    {
+      /* Each h1 and p tag renders a portion of the title and subTitle defined above */
+    }
+    <h1
+      class="block text-3xl font-bold tracking-tight text-balance text-neutral-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-neutral-200"
+    >
+      {
+        typedWords && typedWords.length ? (
+          <>
+            {/* Version visible : préfixe statique sur sa propre ligne, puis
+               la partie animée "machine à écrire" sur la ligne suivante,
+               pour que "enfin" ne bascule jamais d'une ligne à l'autre. */}
+            <span aria-hidden="true" class="block">
+              {titlePrefix}
+            </span>
+            <span
+              aria-hidden="true"
+              class="mt-1 block min-h-[1.2em] text-yellow-500 dark:text-yellow-400"
+            >
+              <span id="hero-typewriter"></span>
+              <span
+                id="hero-typewriter-cursor"
+                class="ml-0.5 inline-block w-[3px] animate-pulse bg-yellow-500 align-[-0.1em] dark:bg-yellow-400"
+                style="height: 0.85em;"
+              />
+            </span>
+            {/* Version pour le SEO et les lecteurs d'écran : texte complet, statique */}
+            <span class="sr-only">{fallbackFullTitle}</span>
+          </>
+        ) : (
+          /* About Fragment: https://docs.astro.build/en/basics/astro-syntax/#fragments */
+          <Fragment set:html={title} />
+        )
+      }
+    </h1>
+    {
+      subTitle && (
+        <p class="mt-3 text-lg leading-relaxed text-pretty text-neutral-700 lg:w-4/5 dark:text-neutral-400">
+          {subTitle}
+        </p>
+      )
+    }
+    {
+      /* Action Button Section: This section includes two CTAs with their own styles and URL */
+    }
+    <div class="mt-7 grid w-full gap-3 sm:inline-flex">
+      {primaryBtn && <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />}
+      {
+        secondaryBtn && (
+          <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
+        )
+      }
+    </div>
+
+    {
+      /* Review Section: This section presents avatars, review ratings and the number of reviews */
+    }
+    {
+      withReview ? (
+        <ReviewComponent
+          avatars={avatars}
+          starCount={starCount}
+          rating={rating}
+          reviews={reviews}
+        />
+      ) : (
+        ''
+      )
+    }
+  </div>
+  {/* Hero Image Section */}
+  <div class="flex w-full items-center justify-center">
+    <div class="relative aspect-3/2 w-full">
+      {/* Ombre décorative : renforce l'effet "posé au sol" et adoucit le bas de la photo */}
+      <div
+        class="absolute inset-x-8 bottom-2 h-16 rounded-full bg-neutral-900/15 blur-2xl dark:bg-black/30"
+        aria-hidden="true"
+      />
+      {
+        src && alt && (
+          <Image
+            src={src}
+            alt={alt}
+            class="relative z-10 h-full w-full object-contain object-center [-webkit-mask-image:linear-gradient(to_bottom,black_80%,transparent_98%)] [mask-image:linear-gradient(to_bottom,black_80%,transparent_98%)]"
+            draggable={'false'}
+            loading={'eager'}
+            format={'avif'}
+          />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+{
+  typedWords && typedWords.length && (
+    <script define:vars={{ words: typedWords }}>
+      const el = document.getElementById('hero-typewriter');
+      const cursorEl = document.getElementById('hero-typewriter-cursor');
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (el && words && words.length) {
+        if (prefersReducedMotion) {
+          // Pas d'animation : on affiche simplement la première variante.
+          el.textContent = words[0];
+          if (cursorEl) cursorEl.style.display = 'none';
+        } else {
+          let wordIndex = 0;
+          let charIndex = 0;
+          let deleting = false;
+
+          const typingSpeed = 55;
+          const deletingSpeed = 28;
+          const pauseAfterTyped = 1800;
+          const pauseAfterDeleted = 300;
+
+          function tick() {
+            const currentWord = words[wordIndex];
+
+            if (!deleting) {
+              charIndex++;
+              el.textContent = currentWord.slice(0, charIndex);
+
+              if (charIndex === currentWord.length) {
+                deleting = true;
+                setTimeout(tick, pauseAfterTyped);
+                return;
+              }
+              setTimeout(tick, typingSpeed);
+            } else {
+              charIndex--;
+              el.textContent = currentWord.slice(0, charIndex);
+
+              if (charIndex === 0) {
+                deleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(tick, pauseAfterDeleted);
+                return;
+              }
+              setTimeout(tick, deletingSpeed);
+            }
+          }
+
+          tick();
+        }
+      }
+    </script>
+  )
+}

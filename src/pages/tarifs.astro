@@ -1,0 +1,247 @@
+---
+// Page Tarifs : les 3 offres réelles d'AcademyFlow (essai gratuit, standard, premium).
+import MainLayout from '@/layouts/MainLayout.astro';
+import FAQ from '@components/sections/misc/FAQ.astro';
+import HeroSectionAlt from '@components/sections/landing/HeroSectionAlt.astro';
+import Icon from '@components/ui/icons/Icon.astro';
+import { SITE, SEO } from '@data/constants';
+
+const pageTitle = `Tarifs | ${SITE.title}`;
+const metaDescription =
+  "Les tarifs d'AcademyFlow : essai gratuit de 5 jours, abonnement Standard à 50 000 FCFA/an, abonnement Premium à 92 000 FCFA/an avec imprimante de reçus offerte.";
+
+const offres = [
+  {
+    nom: 'Essai gratuit',
+    description: 'Découvrez AcademyFlow sans engagement',
+    prix: '0',
+    devise: 'FCFA',
+    periode: 'pendant 5 jours',
+    avantages: [
+      'Accès à tous les modules',
+      'Toutes les fonctionnalités disponibles',
+      'Aucune carte bancaire requise',
+      "Vos données restent disponibles après l'essai",
+    ],
+    btnTitle: 'Commencer gratuitement',
+    btnUrl: '/telecharger',
+    miseEnAvant: false,
+    badge: null,
+  },
+  {
+    nom: 'Standard',
+    description: "L'essentiel pour gérer efficacement votre établissement",
+    prix: '50 000',
+    devise: 'FCFA',
+    periode: '/ an / poste',
+    avantages: [
+      'Gestion des élèves',
+      'Caisse & encaissements',
+      'Reçus de paiement',
+      'Documents administratifs',
+      'Fonctionnement hors ligne',
+      'Sauvegarde automatique des données',
+      'Support par e-mail',
+    ],
+    btnTitle: 'Choisir Standard',
+    btnUrl: '#contact-licence',
+    miseEnAvant: true,
+    badge: 'Le plus choisi',
+  },
+  {
+    nom: 'Premium',
+    description: 'La solution complète, avec votre imprimante de reçus',
+    prix: '92 000',
+    devise: 'FCFA',
+    periode: '/ an / poste',
+    avantages: [
+      'Tout ce qui est inclus dans Standard',
+      'Imprimante thermique de reçus offerte',
+      'Support prioritaire',
+    ],
+    btnTitle: 'Choisir Premium',
+    btnUrl: '#contact-licence',
+    miseEnAvant: false,
+    badge: 'Recommandé',
+  },
+];
+
+const faqsLicence = {
+  subTitle:
+    "Tout ce qu'il faut savoir avant d'acheter une licence AcademyFlow.",
+  faqs: [
+    {
+      question: "Comment j'active ma licence après l'achat ?",
+      answer:
+        "Après votre paiement, vous recevez un email dans votre boîte de réception contenant votre clé de licence. Ouvrez AcademyFlow et saisissez la clé reçue pour activer l'application.",
+    },
+    {
+      question: 'Une licence couvre-t-elle plusieurs ordinateurs ?',
+      answer:
+        "Une licence correspond à un seul poste. Pour équiper plusieurs ordinateurs (par exemple plusieurs guichets de caisse), il faut une licence par poste. Contactez-nous pour un tarif multi-postes.",
+    },
+    {
+      question: 'Quels moyens de paiement sont acceptés ?',
+      answer:
+        'Le paiement se fait en ligne via les agrégateurs de paiement locaux (Mobile Money et carte bancaire).',
+    },
+    {
+      question: "Que se passe-t-il si je ne renouvelle pas mon abonnement ?",
+      answer:
+        "À l'expiration, AcademyFlow passe en lecture seule : vous pouvez toujours consulter vos données existantes, mais plus créer de nouvelles opérations, jusqu'au renouvellement.",
+    },
+  ],
+};
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={pageTitle}
+  structuredData={{
+    ...SEO.structuredData,
+    '@id': `${SITE.url}/tarifs`,
+    url: `${SITE.url}/tarifs`,
+    name: pageTitle,
+    description: metaDescription,
+  }}
+>
+  {/* En-tête */}
+  <section class="mx-auto max-w-[85rem] px-4 pt-10 pb-4 sm:px-6 lg:px-8 lg:pt-14">
+    <div class="mx-auto max-w-2xl text-center">
+      <h1
+        class="text-3xl font-bold tracking-tight text-balance text-neutral-800 md:text-5xl md:leading-tight dark:text-neutral-200"
+      >
+        Un tarif simple, <span class="text-yellow-500 dark:text-yellow-400"
+          >adapté à votre établissement</span
+        >
+      </h1>
+      <p class="mt-4 text-pretty text-lg text-neutral-600 dark:text-neutral-400">
+        Testez AcademyFlow gratuitement pendant 5 jours, puis choisissez la
+        formule qui correspond à vos besoins. Aucun engagement, aucune
+        surprise.
+      </p>
+    </div>
+  </section>
+
+  {/* Les 3 offres */}
+  <section
+    id="contact-licence"
+    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
+  >
+    <div class="grid gap-6 lg:grid-cols-3">
+      {
+        offres.map(offre => (
+          <div
+            class:list={[
+              'flex flex-col rounded-xl p-6 sm:p-8',
+              offre.miseEnAvant
+                ? 'bg-gray-800 ring-2 ring-yellow-400'
+                : 'bg-neutral-100 dark:bg-neutral-800',
+            ]}
+          >
+            {offre.badge && (
+              <span
+                class:list={[
+                  'mb-3 inline-block w-fit rounded-full px-3 py-1 text-xs font-bold',
+                  offre.miseEnAvant
+                    ? 'bg-yellow-400 text-neutral-800'
+                    : 'bg-orange-100 text-orange-600 dark:bg-orange-500/15 dark:text-orange-400',
+                ]}
+              >
+                {offre.badge}
+              </span>
+            )}
+            <h3
+              class:list={[
+                'text-2xl font-bold',
+                offre.miseEnAvant
+                  ? 'text-neutral-100'
+                  : 'text-neutral-800 dark:text-neutral-100',
+              ]}
+            >
+              {offre.nom}
+            </h3>
+            <p
+              class:list={[
+                'mt-1 text-sm',
+                offre.miseEnAvant
+                  ? 'text-indigo-300'
+                  : 'text-neutral-600 dark:text-neutral-400',
+              ]}
+            >
+              {offre.description}
+            </p>
+
+            <div class="mt-6 mb-6">
+              <span
+                class:list={[
+                  'text-4xl font-bold',
+                  offre.miseEnAvant
+                    ? 'text-neutral-100'
+                    : 'text-neutral-800 dark:text-neutral-100',
+                ]}
+              >
+                {offre.prix}
+              </span>
+              <span
+                class:list={[
+                  'ms-2 text-sm',
+                  offre.miseEnAvant
+                    ? 'text-indigo-200'
+                    : 'text-neutral-600 dark:text-neutral-400',
+                ]}
+              >
+                {offre.devise} {offre.periode}
+              </span>
+            </div>
+
+            <ul
+              class:list={[
+                'mb-8 flex-1 space-y-2',
+                offre.miseEnAvant
+                  ? 'text-neutral-300'
+                  : 'text-neutral-700 dark:text-neutral-300',
+              ]}
+            >
+              {offre.avantages.map(avantage => (
+                <li class="flex items-center gap-1.5">
+                  <Icon name="checkCircle" />
+                  {avantage}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={offre.btnUrl}
+              class:list={[
+                'inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-center text-sm font-medium transition duration-300',
+                offre.miseEnAvant
+                  ? 'bg-yellow-400 text-neutral-800 hover:bg-yellow-300'
+                  : 'bg-neutral-800 text-neutral-100 hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-800 dark:hover:bg-neutral-300',
+              ]}
+            >
+              {offre.btnTitle}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-center text-sm text-neutral-500 dark:text-neutral-400">
+      Paiement sécurisé par Mobile Money ou carte bancaire. Besoin d'équiper
+      plusieurs postes ?{' '}
+      <a href="/contact" class="font-medium underline underline-offset-2"
+        >Contactez-nous</a
+      > pour un tarif adapté.
+    </p>
+  </section>
+
+  <FAQ title="Questions<br />sur les licences" faqs={faqsLicence} />
+
+  <HeroSectionAlt
+    title="Encore indécis ?"
+    subTitle="L'essai gratuit de 5 jours vous donne accès à tous les modules, sans carte bancaire."
+    url="/telecharger"
+  />
+</MainLayout>

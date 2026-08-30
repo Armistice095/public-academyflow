@@ -1,0 +1,93 @@
+---
+// Import the necessary components
+import MainLayout from '@/layouts/MainLayout.astro';
+import HeroSection from '@components/sections/landing/HeroSection.astro';
+import HeroSectionAlt from '@components/sections/landing/HeroSectionAlt.astro';
+import FeaturesGeneral from '@components/sections/features/FeaturesGeneral.astro';
+import FeaturesNavs from '@components/sections/features/FeaturesNavs.astro';
+import PricingSection from '@components/sections/pricing/PricingSection.astro';
+import FAQ from '@components/sections/misc/FAQ.astro';
+import AnnouncementBanner from '@components/ui/banners/AnnouncementBanner.astro';
+import faqs from '@data/faqs.json';
+import features from '@data/features.json';
+import pricing from '@data/pricing.json';
+import dashboardImage from '@images/produit/rapport-recettes.png';
+import eleveImage from '@images/produit/eleve-levant-la-main.png';
+import caisseImage from '@images/produit/caisse-recu.png';
+import heroImage from '@images/produit/hero-utilisatrice.png';
+import posteCompletImage from '@images/produit/poste-complet.png';
+---
+
+<MainLayout>
+  <AnnouncementBanner
+    btnId="dismiss-button"
+    btnTitle="Essai gratuit de 5 jours, sans engagement"
+    url="/tarifs"
+  />
+
+  <HeroSection
+    titlePrefix="La gestion scolaire, enfin"
+    typedWords={[
+      'simple et maîtrisée.',
+      'fluide et efficace.',
+      'claire et sans effort.',
+    ]}
+    subTitle="AcademyFlow simplifie la gestion quotidienne de votre établissement en centralisant élèves, paiements, reçus et rapports dans une seule application. Une solution rapide, intuitive et accessible, avec ou sans Internet."
+    primaryBtn="Télécharger AcademyFlow"
+    primaryBtnURL="/telecharger"
+    secondaryBtn="Voir les fonctionnalités"
+    secondaryBtnURL="/fonctionnalites"
+    src={heroImage}
+    alt="Une utilisatrice présente le tableau de bord AcademyFlow sur une tablette, avec les recettes, dépenses et activités récentes de son établissement"
+  />
+
+  <FeaturesGeneral
+    title="Un outil conçu pour simplifier le quotidien des établissements"
+    subTitle="AcademyFlow répond aux besoins concrets des écoles : gérer les élèves, suivre les paiements, éditer les reçus et consulter les informations essentielles depuis un seul logiciel. Tout est pensé pour réduire les tâches répétitives, fiabiliser les données et vous faire gagner du temps au quotidien."
+    src={posteCompletImage}
+    alt="Poste de travail complet AcademyFlow : ordinateur avec le tableau de bord, imprimante thermique de reçus et carnet de notes à la marque AcademyFlow"
+    features={features}
+  />
+
+  <FeaturesNavs
+    title=`Tout votre établissement, <span class="text-yellow-500 dark:text-yellow-400">réuni au même endroit</span>`
+    tabs={[
+      {
+        heading: 'Gestion des élèves',
+        content:
+          "Centralisez toutes les informations d'un élève au même endroit : identité, responsables, classe, parcours scolaire et situation financière. Une seule saisie suffit : les données sont automatiquement disponibles dans les modules concernés.",
+        svg: 'groups',
+        src: eleveImage,
+        alt: "Élève souriant levant la main en classe, symbole de la gestion des élèves dans AcademyFlow",
+        first: true,
+      },
+      {
+        heading: 'Caisse & reçus',
+        content:
+          "Enregistrez les paiements, suivez les entrées et sorties de caisse et consultez votre journal financier en temps réel. Générez également des reçus professionnels en quelques secondes, prêts à être imprimés ou remis aux parents.",
+        svg: 'books',
+        src: caisseImage,
+        alt: "Journal de caisse AcademyFlow avec impression d'un reçu de paiement sur imprimante thermique",
+        second: true,
+      },
+      {
+        heading: 'Rapports & tableau de bord',
+        content:
+          "Suivez en un coup d'œil les indicateurs essentiels de votre établissement : encaissements, recouvrement, répartition des paiements et évolution financière. Analysez, exportez et prenez vos décisions à partir de données fiables.",
+        svg: 'dashboard',
+        src: dashboardImage,
+        alt: "Rapport des recettes AcademyFlow affiché sur un ordinateur portable, avec répartition par catégorie et évolution des recettes",
+      },
+    ]}
+  />
+
+  <PricingSection pricing={pricing} />
+
+  <FAQ title="Questions<br />fréquentes" faqs={faqs} />
+
+  <HeroSectionAlt
+    title="Prêt à essayer AcademyFlow ?"
+    subTitle="Téléchargez gratuitement AcademyFlow pour Windows, macOS ou Linux et testez-le pendant 5 jours, sans engagement."
+    url="/telecharger"
+  />
+</MainLayout>

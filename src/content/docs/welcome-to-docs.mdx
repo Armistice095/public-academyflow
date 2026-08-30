@@ -1,0 +1,43 @@
+---
+title: Documentation AcademyFlow
+head:
+  - tag: title
+    content: Documentation AcademyFlow
+description: Guides d'installation, d'activation et d'utilisation d'AcademyFlow, le logiciel de gestion scolaire pour Windows, macOS et Linux.
+template: splash
+editUrl: false
+lastUpdated: false
+next: false
+hero:
+  title: Centre de documentation
+  tagline: Tout ce qu'il faut pour installer, activer et utiliser AcademyFlow au quotidien.
+  image:
+      alt: Logo AcademyFlow
+      file: ../../images/academyflow-logo.png
+  actions:
+    - text: Commencer
+      icon: right-arrow
+      variant: primary
+      link: /guides/installation/
+    - text: Télécharger AcademyFlow
+      icon: download
+      variant: minimal
+      link: /telecharger
+---
+import "@styles/starlight_main.css";
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+
+  <Card title="Démarrer" icon="rocket">
+    Installez AcademyFlow sur votre ordinateur (Windows, macOS ou Linux) et activez votre licence en quelques minutes.
+  </Card>
+
+  <Card title="Utiliser AcademyFlow" icon="open-book">
+    Gestion des élèves, encaissements, reçus, rapports financiers et documents administratifs : le guide de chaque module.
+  </Card>
+
+  <Card title="Aide" icon="setting">
+    Questions fréquentes, sauvegarde des données, fonctionnement hors ligne et résolution des problèmes courants.
+  </Card>
+</CardGrid>

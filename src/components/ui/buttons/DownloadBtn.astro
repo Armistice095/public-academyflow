@@ -1,0 +1,32 @@
+---
+const { title = 'Télécharger', url = '/telecharger' } = Astro.props;
+
+interface Props {
+  title?: string;
+  url?: string;
+}
+
+const downloadSVG = `<svg
+      class="h-4 w-4 shrink-0"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+    <polyline points="7 10 12 15 17 10"></polyline>
+    <line x1="12" x2="12" y1="15" y2="3"></line>
+  </svg>`;
+---
+
+<a
+  href={url}
+  class="flex items-center gap-x-2 rounded-full border border-transparent bg-yellow-400 px-4 py-1.5 text-base font-medium text-neutral-800 ring-zinc-500 transition duration-300 hover:bg-yellow-300 focus-visible:ring-3 outline-hidden md:my-3 md:text-sm dark:text-neutral-900 dark:hover:bg-yellow-300 dark:ring-zinc-200 dark:focus:outline-hidden 2xl:text-base"
+>
+  <Fragment set:html={downloadSVG} />
+  {title}
+</a>

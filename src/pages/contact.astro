@@ -1,0 +1,26 @@
+---
+// Import the necessary components
+import MainLayout from '@/layouts/MainLayout.astro';
+import ContactSection from '@components/sections/misc/ContactSection.astro';
+import { SITE, SEO } from '@data/constants';
+
+const pageTitle: string = `Contact | ${SITE.title}`;
+const metaDescription =
+  "Une question sur AcademyFlow, sur une licence ou sur l'installation ? Contactez l'équipe AcademyFlow.";
+const ogTitle = `Contactez-nous | ${SITE.title}`;
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    ...SEO.structuredData,
+    '@id': `${SITE.url}/contact`,
+    url: `${SITE.url}/contact`,
+    name: pageTitle,
+    description: metaDescription,
+  }}
+>
+  <ContactSection />
+</MainLayout>

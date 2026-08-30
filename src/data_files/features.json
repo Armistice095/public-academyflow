@@ -1,0 +1,26 @@
+[
+  {
+    "eyebrow": "Tout au même endroit",
+    "heading": "Élèves, paiements et documents réunis",
+    "content": "AcademyFlow centralise les informations de votre établissement dans une seule base de données. Saisissez une information une fois et retrouvez-la partout où vous en avez besoin, sans double saisie ni fichiers dispersés.",
+    "svg": "frame"
+  },
+  {
+    "eyebrow": "Travaillez même sans Internet",
+    "heading": "Une application qui reste disponible hors ligne",
+    "content": "AcademyFlow fonctionne directement sur votre ordinateur, même sans connexion Internet. Vous pouvez continuer votre travail au quotidien sans dépendre d'une connexion permanente.",
+    "svg": "verified"
+  },
+  {
+    "eyebrow": "Des reçus prêts en quelques secondes",
+    "heading": "Encaissez, imprimez, c'est fait",
+    "content": "Chaque paiement enregistré peut générer automatiquement un reçu prêt à être imprimé. Une façon plus rapide et plus fiable de suivre les encaissements et de garder une trace de chaque opération.",
+    "svg": "books"
+  },
+  {
+    "eyebrow": "Pensé pour les réalités locales",
+    "heading": "Une solution adaptée aux établissements du Bénin",
+    "content": "Gestion en francs CFA, documents adaptés aux usages locaux et accompagnement lors de l'installation : AcademyFlow est pensé pour s'intégrer naturellement au quotidien des établissements scolaires.",
+    "svg": "groups"
+  }
+]

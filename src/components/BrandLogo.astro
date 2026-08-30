@@ -1,0 +1,20 @@
+---
+// Wordmark AcademyFlow : icône + nom de l'application, sur une seule ligne.
+// Contrairement au logo vectoriel ScrewFast d'origine (dimensionné par la largeur),
+// ce logo est une icône + du texte : on le dimensionne par la hauteur et on le
+// laisse prendre la largeur dont il a besoin, pour ne jamais tronquer "AcademyFlow".
+const { class: className = '' } = Astro.props;
+---
+
+<span class={`inline-flex items-center gap-2 whitespace-nowrap ${className}`}>
+  <img
+    src="/logo-academyflow.png"
+    alt="AcademyFlow"
+    class="h-7 w-7 shrink-0 sm:h-8 sm:w-8"
+  />
+  <span
+    class="text-lg leading-none font-bold text-neutral-800 sm:text-xl dark:text-neutral-200"
+  >
+    AcademyFlow
+  </span>
+</span>

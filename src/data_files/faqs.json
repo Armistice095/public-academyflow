@@ -1,0 +1,29 @@
+{
+  "subTitle": "Les réponses aux questions les plus courantes sur AcademyFlow, avant de vous lancer.",
+  "faqs": [
+    {
+      "question": "AcademyFlow fonctionne-t-il sans connexion Internet ?",
+      "answer": "Oui. AcademyFlow est une application installée sur votre ordinateur : la gestion des élèves, des paiements, des reçus et des rapports fonctionne entièrement en local. Une connexion est utile pour l'activation de la licence et la sauvegarde à distance, mais jamais requise pour votre travail quotidien."
+    },
+    {
+      "question": "Sur quels ordinateurs puis-je installer AcademyFlow ?",
+      "answer": "AcademyFlow est disponible pour Windows, macOS et Linux. Téléchargez la version correspondant à votre système depuis la page Télécharger."
+    },
+    {
+      "question": "Comment fonctionne la licence ?",
+      "answer": "Vous téléchargez et installez AcademyFlow gratuitement, puis vous achetez une licence sur ce site. Une clé de licence vous est alors transmise : il suffit de la saisir dans l'application pour l'activer. L'essai gratuit de 5 jours vous permet de tester le logiciel avant de vous engager."
+    },
+    {
+      "question": "Puis-je imprimer les reçus de paiement ?",
+      "answer": "Oui, AcademyFlow prend en charge l'impression sur des imprimantes thermiques de caisse. L'offre Premium inclut d'ailleurs une imprimante offerte."
+    },
+    {
+      "question": "Comment sont protégées les données de mon établissement ?",
+      "answer": "AcademyFlow propose un mécanisme de sauvegarde automatique vers une infrastructure distante sécurisée, en complément de vos données locales, afin de vous protéger contre la perte d'un appareil ou une panne matérielle."
+    },
+    {
+      "question": "Quels moyens de paiement sont acceptés pour la licence ?",
+      "answer": "Le paiement s'effectue en ligne via les agrégateurs de paiement locaux (Mobile Money et carte bancaire), au moment de l'achat de votre licence sur ce site."
+    }
+  ]
+}

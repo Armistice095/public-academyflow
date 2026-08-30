@@ -1,0 +1,266 @@
+---
+// Page Télécharger : détection de l'OS du visiteur + liens vers les 3 installeurs.
+import MainLayout from '@/layouts/MainLayout.astro';
+import Icon from '@components/ui/icons/Icon.astro';
+import OsIcon from '@components/ui/icons/OsIcon.astro';
+import { SITE, SEO } from '@data/constants';
+
+const pageTitle = `Télécharger | ${SITE.title}`;
+const metaDescription =
+  "Téléchargez AcademyFlow gratuitement pour Windows, macOS ou Linux. Installation en quelques minutes, essai gratuit de 5 jours inclus.";
+
+// Dépôt public dédié aux releases (ne contient pas le code source de l'application).
+// Pointe toujours vers la dernière release grâce à /releases/latest/download/<fichier>.
+const GITHUB_RELEASES_URL =
+  'https://github.com/Armistice095/academyflow_relases/releases/latest';
+
+const plateformes = [
+  {
+    id: 'windows' as const,
+    nom: 'Windows',
+    detail: 'Windows 10 et 11 (64 bits)',
+    fichier: 'AcademyFlow-Setup.exe',
+    url: `${GITHUB_RELEASES_URL}/download/AcademyFlow-Setup.exe`,
+  },
+  {
+    id: 'mac' as const,
+    nom: 'macOS',
+    detail: 'macOS 12 et versions ultérieures',
+    fichier: 'AcademyFlow.dmg',
+    url: `${GITHUB_RELEASES_URL}/download/AcademyFlow.dmg`,
+  },
+  {
+    id: 'linux' as const,
+    nom: 'Linux',
+    detail: 'Debian, Ubuntu et dérivés (.deb)',
+    fichier: 'AcademyFlow.deb',
+    url: `${GITHUB_RELEASES_URL}/download/AcademyFlow.deb`,
+  },
+];
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={pageTitle}
+  structuredData={{
+    ...SEO.structuredData,
+    '@id': `${SITE.url}/telecharger`,
+    url: `${SITE.url}/telecharger`,
+    name: pageTitle,
+    description: metaDescription,
+  }}
+>
+  {/* En-tête */}
+  <section class="mx-auto max-w-[85rem] px-4 pt-10 pb-4 sm:px-6 lg:px-8 lg:pt-14">
+    <div class="mx-auto max-w-2xl text-center">
+      <h1
+        class="text-3xl font-bold tracking-tight text-balance text-neutral-800 md:text-5xl md:leading-tight dark:text-neutral-200"
+      >
+        Téléchargez <span class="text-yellow-500 dark:text-yellow-400"
+          >AcademyFlow</span
+        >
+      </h1>
+      <p class="mt-4 text-pretty text-lg text-neutral-600 dark:text-neutral-400">
+        Gratuit à l'installation, avec un essai de 5 jours pour tester tous
+        les modules. Choisissez votre système d'exploitation ci-dessous.
+      </p>
+    </div>
+  </section>
+
+  {/* Bouton mis en avant selon l'OS détecté */}
+  <section class="mx-auto max-w-[85rem] px-4 py-6 sm:px-6 lg:px-8">
+    <div
+      id="download-detected"
+      class="mx-auto flex max-w-md flex-col items-center gap-3 rounded-xl bg-neutral-100 p-8 text-center dark:bg-neutral-800"
+    >
+      <div
+        id="download-detected-icon"
+        class="flex h-12 w-12 items-center justify-center text-neutral-800 dark:text-neutral-100"
+      >
+        <span data-os-icon="windows"><OsIcon name="windows" class="h-10 w-10" /></span>
+        <span data-os-icon="mac" class="hidden"><OsIcon name="mac" class="h-10 w-10" /></span>
+        <span data-os-icon="linux" class="hidden"><OsIcon name="linux" class="h-10 w-10" /></span>
+      </div>
+      <p
+        id="download-detected-os"
+        class="text-2xl font-bold text-neutral-800 dark:text-neutral-100"
+      >
+        Windows
+      </p>
+      <a
+        id="download-detected-btn"
+        href={plateformes[0].url}
+        class="mt-2 inline-flex items-center gap-x-2 rounded-full border border-transparent bg-yellow-400 px-6 py-3 text-base font-medium text-neutral-800 transition duration-300 hover:bg-yellow-300"
+      >
+        <Icon name="rocket" />
+        Télécharger pour Windows
+      </a>
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        Pas le bon système ? Choisissez-le manuellement ci-dessous.
+      </p>
+    </div>
+  </section>
+
+  {/* Les 3 plateformes, en cartes */}
+  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div class="grid gap-6 sm:grid-cols-3">
+      {
+        plateformes.map(plateforme => (
+          <div
+            id={`carte-${plateforme.id}`}
+            class="flex flex-col items-center gap-3 rounded-xl border border-neutral-200 p-6 text-center transition duration-300 dark:border-neutral-700"
+          >
+            <OsIcon
+              name={plateforme.id}
+              class="h-9 w-9 text-neutral-800 dark:text-neutral-100"
+            />
+            <h3 class="text-xl font-bold text-neutral-800 dark:text-neutral-100">
+              {plateforme.nom}
+            </h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">
+              {plateforme.detail}
+            </p>
+            <a
+              href={plateforme.url}
+              class="mt-2 inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-neutral-300 px-4 py-2.5 text-sm font-medium text-neutral-700 transition duration-300 hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800"
+            >
+              Télécharger
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mx-auto mt-10 max-w-2xl text-center">
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+        En téléchargeant AcademyFlow, vous installez l'application avec un
+        essai gratuit de 5 jours. Aucune licence n'est requise pour
+        l'installer et l'essayer — vous en aurez besoin uniquement pour
+        continuer à l'utiliser au-delà de l'essai.{' '}
+        <a href="/tarifs" class="font-medium underline underline-offset-2"
+          >Voir les tarifs</a
+        >.
+      </p>
+    </div>
+  </section>
+
+  {/* Étapes après téléchargement */}
+  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div class="mx-auto mb-10 max-w-2xl text-center">
+      <h2
+        class="text-2xl font-bold tracking-tight text-balance text-neutral-800 md:text-4xl dark:text-neutral-200"
+      >
+        Et ensuite ?
+      </h2>
+    </div>
+    <div class="grid gap-8 sm:grid-cols-3">
+      <div class="text-center">
+        <div
+          class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-yellow-400 font-bold text-neutral-800"
+        >
+          1
+        </div>
+        <h3 class="font-bold text-neutral-800 dark:text-neutral-100">
+          Installez
+        </h3>
+        <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+          Suivez l'assistant d'installation pour votre système.
+        </p>
+      </div>
+      <div class="text-center">
+        <div
+          class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-yellow-400 font-bold text-neutral-800"
+        >
+          2
+        </div>
+        <h3 class="font-bold text-neutral-800 dark:text-neutral-100">
+          Essayez gratuitement
+        </h3>
+        <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+          Testez tous les modules pendant 5 jours, sans engagement.
+        </p>
+      </div>
+      <div class="text-center">
+        <div
+          class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-yellow-400 font-bold text-neutral-800"
+        >
+          3
+        </div>
+        <h3 class="font-bold text-neutral-800 dark:text-neutral-100">
+          Activez votre licence
+        </h3>
+        <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+          Achetez une licence sur la {' '}
+          <a href="/tarifs" class="underline underline-offset-2"
+            >page Tarifs</a
+          > et saisissez la clé reçue dans l'application.
+        </p>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  // Détection simple du système d'exploitation côté client pour mettre en
+  // avant le bon installeur. Purement indicatif : les 3 options manuelles
+  // restent toujours visibles et fonctionnelles en dessous.
+  const platformData: Record<
+    string,
+    { label: string; url: string; btnLabel: string }
+  > = {
+    windows: {
+      label: 'Windows',
+      url: document.getElementById('carte-windows')
+        ? (document.querySelector('#carte-windows a') as HTMLAnchorElement)
+            ?.href
+        : '',
+      btnLabel: 'Télécharger pour Windows',
+    },
+    mac: {
+      label: 'macOS',
+      url: document.getElementById('carte-mac')
+        ? (document.querySelector('#carte-mac a') as HTMLAnchorElement)?.href
+        : '',
+      btnLabel: 'Télécharger pour macOS',
+    },
+    linux: {
+      label: 'Linux',
+      url: document.getElementById('carte-linux')
+        ? (document.querySelector('#carte-linux a') as HTMLAnchorElement)
+            ?.href
+        : '',
+      btnLabel: 'Télécharger pour Linux',
+    },
+  };
+
+  function detectOS(): keyof typeof platformData {
+    const ua = window.navigator.userAgent.toLowerCase();
+    if (ua.includes('mac')) return 'mac';
+    if (ua.includes('linux') && !ua.includes('android')) return 'linux';
+    return 'windows';
+  }
+
+  const detected = detectOS();
+  const data = platformData[detected];
+
+  const osLabelEl = document.getElementById('download-detected-os');
+  const btnEl = document.getElementById(
+    'download-detected-btn'
+  ) as HTMLAnchorElement | null;
+
+  if (osLabelEl) osLabelEl.textContent = data.label;
+  if (btnEl && data.url) {
+    btnEl.href = data.url;
+    const textNode = btnEl.lastChild;
+    if (textNode) textNode.textContent = ` ${data.btnLabel}`;
+  }
+
+  // Afficher uniquement l'icône du système détecté
+  document.querySelectorAll('[data-os-icon]').forEach(el => {
+    el.classList.toggle(
+      'hidden',
+      el.getAttribute('data-os-icon') !== detected
+    );
+  });
+</script>
