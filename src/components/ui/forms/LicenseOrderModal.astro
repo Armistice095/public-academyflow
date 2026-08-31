@@ -386,31 +386,32 @@ const config = {
     if (params.get('renew') === '1') {
       configureModal('renewal', 'standard');
 
-      // Preline initialise ses overlays sur l'événement `load` (après le
-      // chargement des images), pas sur DOMContentLoaded. On attend donc
-      // que l'instance existe réellement dans sa collection avant d'appeler
-      // open(), avec un polling de secours au cas où `load` serait déjà passé.
+      // Preline expose sa classe HSOverlay dès que son script s'exécute,
+      // mais n'enregistre automatiquement les overlays de la page que sur
+      // l'événement `load` (après le chargement des images) via autoInit().
+      // Plutôt que d'attendre `load`, on initialise nous-mêmes CETTE
+      // overlay précise dès que possible : `new HSOverlay(modal)` ne crée
+      // rien en double, autoInit() détecte ensuite qu'elle est déjà dans
+      // `window.$hsOverlayCollection` et l'ignore.
       const openWhenReady = (attemptsLeft = 100) => {
+        if (!window.HSOverlay) {
+          if (attemptsLeft > 0) {
+            window.setTimeout(() => openWhenReady(attemptsLeft - 1), 50);
+          }
+          return;
+        }
         const isRegistered = Array.isArray(window.$hsOverlayCollection)
           ? window.$hsOverlayCollection.some(
               item => item.element && item.element.el === modal
             )
           : false;
-
-        if (window.HSOverlay && isRegistered) {
-          window.HSOverlay.open(modal);
-          return;
+        if (!isRegistered) {
+          new window.HSOverlay(modal);
         }
-        if (attemptsLeft > 0) {
-          window.setTimeout(() => openWhenReady(attemptsLeft - 1), 100);
-        }
+        window.HSOverlay.open(modal);
       };
 
-      if (document.readyState === 'complete') {
-        openWhenReady();
-      } else {
-        window.addEventListener('load', () => openWhenReady());
-      }
+      openWhenReady();
     }
 
     form.addEventListener('submit', async event => {
