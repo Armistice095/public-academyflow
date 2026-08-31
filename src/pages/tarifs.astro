@@ -4,6 +4,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
 import FAQ from '@components/sections/misc/FAQ.astro';
 import HeroSectionAlt from '@components/sections/landing/HeroSectionAlt.astro';
 import Icon from '@components/ui/icons/Icon.astro';
+import LicenseOrderModal from '@components/ui/forms/LicenseOrderModal.astro';
 import { SITE, SEO } from '@data/constants';
 
 const pageTitle = `Tarifs | ${SITE.title}`;
@@ -24,7 +25,10 @@ const offres = [
       "Vos données restent disponibles après l'essai",
     ],
     btnTitle: 'Commencer gratuitement',
-    btnUrl: '/telecharger',
+    btnUrl: '#',
+    mode: 'modal',
+    plan: null,
+    orderType: 'trial',
     miseEnAvant: false,
     badge: null,
   },
@@ -44,7 +48,10 @@ const offres = [
       'Support par e-mail',
     ],
     btnTitle: 'Choisir Standard',
-    btnUrl: '#contact-licence',
+    btnUrl: '#',
+    mode: 'modal',
+    plan: 'standard',
+    orderType: 'new_purchase',
     miseEnAvant: true,
     badge: 'Le plus choisi',
   },
@@ -60,7 +67,10 @@ const offres = [
       'Support prioritaire',
     ],
     btnTitle: 'Choisir Premium',
-    btnUrl: '#contact-licence',
+    btnUrl: '#',
+    mode: 'modal',
+    plan: 'premium',
+    orderType: 'new_purchase',
     miseEnAvant: false,
     badge: 'Recommandé',
   },
@@ -212,17 +222,35 @@ const faqsLicence = {
               ))}
             </ul>
 
-            <a
-              href={offre.btnUrl}
-              class:list={[
-                'inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-center text-sm font-medium transition duration-300',
-                offre.miseEnAvant
-                  ? 'bg-yellow-400 text-neutral-800 hover:bg-yellow-300'
-                  : 'bg-neutral-800 text-neutral-100 hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-800 dark:hover:bg-neutral-300',
-              ]}
-            >
-              {offre.btnTitle}
-            </a>
+            {offre.mode === 'modal' ? (
+              <button
+                type="button"
+                data-license-trigger
+                data-hs-overlay="#license-order-modal"
+                data-order-type={offre.orderType}
+                data-order-plan={offre.plan}
+                class:list={[
+                  'inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-center text-sm font-medium transition duration-300',
+                  offre.miseEnAvant
+                    ? 'bg-yellow-400 text-neutral-800 hover:bg-yellow-300'
+                    : 'bg-neutral-800 text-neutral-100 hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-800 dark:hover:bg-neutral-300',
+                ]}
+              >
+                {offre.btnTitle}
+              </button>
+            ) : (
+              <a
+                href={offre.btnUrl}
+                class:list={[
+                  'inline-flex items-center justify-center gap-x-2 rounded-lg px-4 py-3 text-center text-sm font-medium transition duration-300',
+                  offre.miseEnAvant
+                    ? 'bg-yellow-400 text-neutral-800 hover:bg-yellow-300'
+                    : 'bg-neutral-800 text-neutral-100 hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-800 dark:hover:bg-neutral-300',
+                ]}
+              >
+                {offre.btnTitle}
+              </a>
+            )}
           </div>
         ))
       }
@@ -244,4 +272,6 @@ const faqsLicence = {
     subTitle="L'essai gratuit de 5 jours vous donne accès à tous les modules, sans carte bancaire."
     url="/telecharger"
   />
+
+  <LicenseOrderModal />
 </MainLayout>

@@ -12,6 +12,13 @@ export const SITE = {
   author: 'AcademyFlow',
 };
 
+// Backend de commande (création de licence / paiement PawaPay).
+// Voir doc API fournie par l'équipe backend pour le détail des endpoints.
+export const BACKEND = {
+  // TODO: remplacer par le domaine définitif si un domaine personnalisé est mis devant Render.
+  baseUrl: 'https://backend-academyflow.onrender.com',
+};
+
 export const SEO = {
   title: `${SITE.title} — ${SITE.tagline}`,
   description: SITE.description,

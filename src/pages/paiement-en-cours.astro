@@ -1,0 +1,87 @@
+---
+// Page de retour après l'étape de paiement PawaPay.
+// IMPORTANT : à ce stade, le paiement n'est pas forcément confirmé — l'utilisateur
+// vient juste de terminer son interaction sur la page PawaPay. La confirmation
+// réelle (création de la licence + envoi du certificat) arrive par e-mail
+// quelques secondes à ~1 minute plus tard.
+//
+// Cette URL doit être configurée côté backend comme ORDER_RETURN_URL.
+import MainLayout from '@/layouts/MainLayout.astro';
+import { SITE, SEO } from '@data/constants';
+
+const pageTitle = `Paiement en cours | ${SITE.title}`;
+const metaDescription =
+  'Ton paiement AcademyFlow est en cours de confirmation. Tu recevras ta clé de licence par e-mail.';
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={pageTitle}
+  structuredData={{
+    ...SEO.structuredData,
+    '@id': `${SITE.url}/paiement-en-cours`,
+    url: `${SITE.url}/paiement-en-cours`,
+    name: pageTitle,
+    description: metaDescription,
+  }}
+>
+  <section
+    class="mx-auto flex max-w-[85rem] flex-col items-center px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-24"
+  >
+    <div
+      class="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-yellow-400/20"
+    >
+      <svg
+        class="h-8 w-8 animate-spin text-yellow-500"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+      </svg>
+    </div>
+
+    <h1
+      class="text-2xl font-bold tracking-tight text-balance text-neutral-800 md:text-4xl dark:text-neutral-200"
+    >
+      Paiement en cours de confirmation
+    </h1>
+    <p
+      class="mt-4 max-w-xl text-pretty text-neutral-600 dark:text-neutral-400"
+    >
+      Merci ! Ton interaction avec l'opérateur Mobile Money est terminée.
+      La confirmation du paiement peut prendre quelques secondes à une
+      minute. Dès que c'est fait, tu recevras ta clé de licence par
+      e-mail, avec ton certificat en pièce jointe.
+    </p>
+    <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+      Si tu ne reçois rien après quelques minutes, pense à vérifier tes
+      courriers indésirables avant de nous contacter.
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <a
+        href="/"
+        class="inline-flex items-center justify-center rounded-lg bg-neutral-800 px-5 py-3 text-sm font-medium text-neutral-100 transition duration-300 hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-800 dark:hover:bg-neutral-300"
+      >
+        Retour à l'accueil
+      </a>
+      <a
+        href="/contact"
+        class="inline-flex items-center justify-center rounded-lg border border-neutral-300 px-5 py-3 text-sm font-medium text-neutral-700 transition duration-300 hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-800"
+      >
+        Contacter le support
+      </a>
+    </div>
+  </section>
+</MainLayout>

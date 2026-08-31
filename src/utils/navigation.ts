@@ -21,6 +21,7 @@ const footerLinks = [
     section: 'Support',
     links: [
       { name: 'Documentation', url: '/welcome-to-docs/' },
+      { name: 'Renouveler ma licence', url: '/tarifs?renew=1' },
       { name: 'Contact', url: '/contact' },
     ],
   },
