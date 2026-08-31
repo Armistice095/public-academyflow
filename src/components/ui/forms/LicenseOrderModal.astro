@@ -385,9 +385,32 @@ const config = {
     const params = new URLSearchParams(window.location.search);
     if (params.get('renew') === '1') {
       configureModal('renewal', 'standard');
-      window.setTimeout(() => {
-        window.HSOverlay?.open(modal);
-      }, 150);
+
+      // Preline initialise ses overlays sur l'événement `load` (après le
+      // chargement des images), pas sur DOMContentLoaded. On attend donc
+      // que l'instance existe réellement dans sa collection avant d'appeler
+      // open(), avec un polling de secours au cas où `load` serait déjà passé.
+      const openWhenReady = (attemptsLeft = 100) => {
+        const isRegistered = Array.isArray(window.$hsOverlayCollection)
+          ? window.$hsOverlayCollection.some(
+              item => item.element && item.element.el === modal
+            )
+          : false;
+
+        if (window.HSOverlay && isRegistered) {
+          window.HSOverlay.open(modal);
+          return;
+        }
+        if (attemptsLeft > 0) {
+          window.setTimeout(() => openWhenReady(attemptsLeft - 1), 100);
+        }
+      };
+
+      if (document.readyState === 'complete') {
+        openWhenReady();
+      } else {
+        window.addEventListener('load', () => openWhenReady());
+      }
     }
 
     form.addEventListener('submit', async event => {
